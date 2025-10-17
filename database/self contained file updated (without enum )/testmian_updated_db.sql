@@ -1,5 +1,7 @@
 
-
+/*
+Updated Database
+*/
 
 DROP DATABASE IF EXISTS testmian_quiz_app_v2;
 CREATE DATABASE testmian_quiz_app_v2;
