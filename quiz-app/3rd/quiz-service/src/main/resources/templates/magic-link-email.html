@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Magic Link</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        .container { max-width: 600px; margin: 20px auto; background-color: white; padding: 40px; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); position: relative; overflow: hidden; }
+        .container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c); }
+        .logo-container { text-align: center; margin-bottom: 30px; padding: 20px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; }
+        .logo { max-width: 200px; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; margin: 0; font-size: 28px; font-weight: 700; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .welcome-text { font-size: 18px; color: #34495e; margin: 20px 0; }
+        .button { display: inline-block; padding: 18px 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 50px; margin: 30px 0; font-weight: 600; font-size: 16px; box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3); transition: all 0.3s ease; border: none; cursor: pointer; }
+        .button:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4); }
+        .warning { background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); border: 2px solid #f39c12; padding: 20px; border-radius: 10px; margin: 25px 0; position: relative; }
+        .warning::before { content: '⚠️'; position: absolute; top: -10px; left: 20px; background: white; padding: 5px; border-radius: 50%; border: 2px solid #f39c12; }
+        .warning strong { color: #e67e22; }
+        .fallback-link { background-color: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 14px; word-break: break-all; }
+        .footer { margin-top: 40px; padding-top: 25px; border-top: 2px solid #ecf0f1; font-size: 13px; color: #7f8c8d; text-align: center; }
+        .footer p { margin: 5px 0; }
+        .highlight { background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600; }
+        .security-note { background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%); padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #e17055; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img src="cid:company-logo" alt="Academian Logo" class="logo" th:src="'cid:company-logo'">
+        </div>
+        <div class="header">
+            <h1>Quiz Management System</h1>
+            <p class="welcome-text">Welcome to <span class="highlight">Academian</span></p>
+        </div>
+
+        <p>Hi <span th:text="${recipientName}" class="highlight">User</span>,</p>
+
+        <p>You have requested a secure magic link for <span th:text="${purpose}" class="highlight">authentication</span>.</p>
+
+        <p>Click the button below to securely access your Academian account:</p>
+
+        <div style="text-align: center;">
+            <a th:href="${magicLinkUrl}" class="button">🔐 Secure Login to Academian</a>
+        </div>
+
+        <div class="warning">
+            <strong>⏰ Link Expiration:</strong> This secure link will expire on <span th:text="${#temporals.format(expiresAt, 'yyyy-MM-dd HH:mm:ss')}" style="font-weight: bold; color: #e74c3c;">expiration time</span>.
+            <br><br>
+            <strong>🔒 Security Note:</strong> If you did not request this link, please ignore this email and contact our support team immediately.
+        </div>
+
+        <div class="security-note">
+            <strong>🛡️ Security First:</strong> This link is unique to you and can only be used once. Keep your account secure by not sharing this email.
+        </div>
+
+        <p><strong>Alternative Access:</strong> If the button doesn't work, copy and paste this secure link into your browser:</p>
+        <div class="fallback-link">
+            <a th:href="${magicLinkUrl}" th:text="${magicLinkUrl}" style="color: #667eea; text-decoration: none;">Magic Link URL</a>
+        </div>
+
+        <div class="footer">
+            <p>🚀 <strong>Academian Quiz Management System</strong></p>
+            <p>This is an automated secure message. Please do not reply to this email.</p>
+            <p>Need help? Contact our support team at <a href="mailto:support@academian.com" style="color: #667eea;">support@academian.com</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,670 @@
+{
+  "info": {
+    "name": "Quiz Management API",
+    "description": "API collection for Quiz Management Microservice",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"montiislive720@gmail.com\",\n  \"fullName\": \"Harsh\",\n  \"role\": \"CANDIDATE\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Request Magic Link",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"superadmin@test.com\",\n  \"purpose\": \"LOGIN\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/magic-link/request",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "magic-link", "request"]
+            }
+          }
+        },
+        {
+          "name": "Validate Magic Link",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"{{magic_token}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/magic-link/validate",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "magic-link", "validate"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Quiz Management",
+      "item": [
+        {
+          "name": "Create Quiz",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "title",
+                  "value": "Sample Quiz",
+                  "description": "Quiz title"
+                },
+                {
+                  "key": "description",
+                  "value": "A sample quiz for testing",
+                  "description": "Quiz description"
+                },
+                {
+                  "key": "startTime",
+                  "value": "2025-01-01T10:00:00",
+                  "description": "Quiz start time (ISO format)"
+                },
+                {
+                  "key": "endTime",
+                  "value": "2025-01-01T12:00:00",
+                  "description": "Quiz end time (ISO format)"
+                },
+                {
+                  "key": "durationMinutes",
+                  "value": "60",
+                  "description": "Quiz duration in minutes"
+                },
+                {
+                  "key": "difficultyId",
+                  "value": "1",
+                  "description": "Difficulty level ID"
+                },
+                {
+                  "key": "questionIds",
+                  "value": "1,2,3,4,5",
+                  "description": "Comma-separated question IDs"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/quizzes",
+              "host": ["{{base_url}}"],
+              "path": ["api", "quizzes"]
+            }
+          }
+        },
+        {
+          "name": "Get All Quizzes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/quizzes",
+              "host": ["{{base_url}}"],
+              "path": ["api", "quizzes"]
+            }
+          }
+        },
+        {
+          "name": "Get My Quizzes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/quizzes/my",
+              "host": ["{{base_url}}"],
+              "path": ["api", "quizzes", "my"]
+            }
+          }
+        },
+        {
+          "name": "Get Quiz by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/quizzes/{{quiz_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "quizzes", "{{quiz_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Quiz",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "title",
+                  "value": "Updated Quiz Title",
+                  "description": "Updated quiz title"
+                },
+                {
+                  "key": "description",
+                  "value": "Updated quiz description",
+                  "description": "Updated quiz description"
+                },
+                {
+                  "key": "startTime",
+                  "value": "2025-01-01T11:00:00",
+                  "description": "Updated start time"
+                },
+                {
+                  "key": "endTime",
+                  "value": "2025-01-01T13:00:00",
+                  "description": "Updated end time"
+                },
+                {
+                  "key": "durationMinutes",
+                  "value": "90",
+                  "description": "Updated duration"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/quizzes/{{quiz_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "quizzes", "{{quiz_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Quiz",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/quizzes/{{quiz_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "quizzes", "{{quiz_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Restore Quiz",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Magic-Token",
+                "value": "{{superadmin_magic_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/quizzes/{{quiz_id}}/restore",
+              "host": ["{{base_url}}"],
+              "path": ["api", "quizzes", "{{quiz_id}}", "restore"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Quiz Assignment",
+      "item": [
+        {
+          "name": "Assign Quiz to Candidate",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/quizzes/{{quiz_id}}/assign/{{candidate_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "quizzes", "{{quiz_id}}", "assign", "{{candidate_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Quiz Assignments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/quizzes/{{quiz_id}}/assignments",
+              "host": ["{{base_url}}"],
+              "path": ["api", "quizzes", "{{quiz_id}}", "assignments"]
+            }
+          }
+        },
+        {
+          "name": "Get My Assignments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Magic-Token",
+                "value": "{{candidate_magic_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/candidate/assignments",
+              "host": ["{{base_url}}"],
+              "path": ["api", "candidate", "assignments"]
+            }
+          }
+        },
+        {
+          "name": "Get Assignment by Link",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/candidate/assignments/{{unique_link}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "candidate", "assignments", "{{unique_link}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Question Management",
+      "item": [
+        {
+          "name": "Create Question",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionText\": \"What is the capital of France?\",\n  \"categoryId\": 1,\n  \"questionTypeId\": 1,\n  \"difficultyId\": 1,\n  \"options\": [\n    {\"optionText\": \"Paris\", \"isCorrect\": true},\n    {\"optionText\": \"London\", \"isCorrect\": false},\n    {\"optionText\": \"Berlin\", \"isCorrect\": false},\n    {\"optionText\": \"Madrid\", \"isCorrect\": false}\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/questions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "questions"]
+            }
+          }
+        },
+        {
+          "name": "Get All Questions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/questions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "questions"]
+            }
+          }
+        },
+        {
+          "name": "Get Question by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/questions/{{question_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "questions", "{{question_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Question",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionText\": \"Updated question text\",\n  \"categoryId\": 1,\n  \"questionTypeId\": 1,\n  \"difficultyId\": 1,\n  \"options\": [\n    {\"optionText\": \"Updated option 1\", \"isCorrect\": true},\n    {\"optionText\": \"Updated option 2\", \"isCorrect\": false}\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/questions/{{question_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "questions", "{{question_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Question",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/questions/{{question_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "questions", "{{question_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Category Management",
+      "item": [
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryName\": \"New Category\",\n  \"description\": \"Description of new category\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/categories",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories"]
+            }
+          }
+        },
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/categories",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Management",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users"]
+            }
+          }
+        },
+        {
+          "name": "Get User by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "{{user_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Updated Name\",\n  \"email\": \"updated@example.com\",\n  \"status\": \"ACTIVE\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "{{user_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Audit Logs",
+      "item": [
+        {
+          "name": "Get Audit Logs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/audit-logs",
+              "host": ["{{base_url}}"],
+              "path": ["api", "audit-logs"]
+            }
+          }
+        },
+        {
+          "name": "Get User Audit Logs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Magic-Token",
+                "value": "{{admin_magic_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/audit-logs/user/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "audit-logs", "user", "{{user_id}}"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "admin_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "superadmin_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "candidate_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "quiz_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "candidate_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "unique_link",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "magic_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "admin_magic_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "candidate_magic_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "superadmin_magic_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "question_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "category_id",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

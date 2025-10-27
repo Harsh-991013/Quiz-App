@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Assignment</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; }
+        .container { max-width: 600px; margin: 0 auto; background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .header { text-align: center; margin-bottom: 30px; }
+        .quiz-info { background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0; }
+        .button { display: inline-block; padding: 15px 30px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; margin: 20px 0; }
+        .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #666; }
+        .important { background-color: #d4edda; border: 1px solid #c3e6cb; padding: 15px; border-radius: 5px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Quiz Assignment</h1>
+        </div>
+
+        <p>Hi <span th:text="${recipientName}">Candidate</span>,</p>
+
+        <p>You have been assigned a new quiz. Please find the details below:</p>
+
+        <div class="quiz-info">
+            <h3 th:text="${quizTitle}">Quiz Title</h3>
+            <p><strong>Start Time:</strong> <span th:text="${#temporals.format(startTime, 'yyyy-MM-dd HH:mm:ss')}">Start Time</span></p>
+            <p><strong>End Time:</strong> <span th:text="${#temporals.format(endTime, 'yyyy-MM-dd HH:mm:ss')}">End Time</span></p>
+        </div>
+
+        <div class="important">
+            <strong>Important:</strong> Make sure to complete the quiz within the specified time window.
+            The quiz link will be available only during this period.
+        </div>
+
+        <p>Click the button below to start your quiz:</p>
+
+        <div style="text-align: center;">
+            <a th:href="${quizLink}" class="button">Start Quiz</a>
+        </div>
+
+        <p>If the button doesn't work, you can copy and paste this link into your browser:</p>
+        <p><a th:href="${quizLink}" th:text="${quizLink}">Quiz Link</a></p>
+
+        <p>Good luck with your quiz!</p>
+
+        <div class="footer">
+            <p>This is an automated message from Quiz Management System. Please do not reply to this email.</p>
+        </div>
+    </div>
+</body>
+</html>

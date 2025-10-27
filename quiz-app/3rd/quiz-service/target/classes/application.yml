@@ -1,0 +1,61 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: quiz-service
+  datasource:
+   url: jdbc:mysql://localhost:3306/testmian_quiz_app_v2?useSSL=false&serverTimezone=UTC
+   username: root
+   password: pass
+   driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update   # use 'update' for development to auto-create tables
+    show-sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: prajyotyawalkar90@gmail.com
+    password: wvghugsewdfeuwzb
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 10000
+          timeout: 10000
+          writetimeout: 10000
+          ssl:
+            trust: "*"
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: quiz-service
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+
+jwt:
+  secret: myVeryLongSecretKeyThatIsAtLeast256BitsLongForSecurityPurposes1234567890abcdef
+  expiration: 86400000
+
+app:
+  quiz:
+    max-questions: 100
+  magic-link:
+    expiration-hours: 24
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
