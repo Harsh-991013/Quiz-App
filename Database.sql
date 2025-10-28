@@ -1,0 +1,1 @@
+SELECT * FROM testmian_updated_db.users;
